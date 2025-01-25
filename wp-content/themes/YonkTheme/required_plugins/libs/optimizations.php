@@ -45,23 +45,35 @@
      */
     function Yonk_css_attributes_filter($var) {
         $c = $var;
-
+        $c = array_diff($c, array('active'));
+        
         if (in_array('current-menu-item', $var))
             $c[] = 'active';
         
         if (in_array('menu-item-has-children', $var))
             $c[] = 'has-dropdown';
 
-        unset($c['current-menu-item']);
-        unset($c['menu-item']);
-        unset($c['menu-item-type-post_type']);
-        unset($c['menu-item-object-post']);
-        unset($c['menu-item-has-children']);
+        $c = array_diff($c, array(
+            'current-menu-item', 
+            'current_page_item', 
+            'menu-item', 
+            'menu-item-type-post_type', 
+            'menu-item-object-post', 
+            'menu-item-has-children',
+            'menu-item-object-custom', 
+            'menu-item-type-custom',                        
+        ));
 
         return $c;
     }
 
     add_filter('nav_menu_css_class', 'Yonk_css_attributes_filter', 100, 1);
+
+    function Yonk_clear_nav_menu_item_id($id, $item, $args) {
+        return "";
+    }
+
+    add_filter('nav_menu_item_id', 'Yonk_clear_nav_menu_item_id', 10, 3);
 
     /**
      * Register Theme Features
@@ -164,3 +176,6 @@
      * @return boolean false
      */
     add_filter('enable_post_by_email_configuration', '__return_false');
+
+
+    

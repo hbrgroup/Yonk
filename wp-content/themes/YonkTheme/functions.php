@@ -4,8 +4,6 @@
         exit;
     }
 
-    define('DISALLOW_FILE_EDIT', true);
-    
     require_once dirname(__FILE__) . '/required_plugins/index.php';    
     require_once dirname(__FILE__) . '/shortcodes/qrcode.php';
     require_once dirname(__FILE__) . '/inc/custom-fields.php';
